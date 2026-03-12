@@ -498,32 +498,31 @@ def puzzle_room(player_info_arg):
     else:
         you_died("The puzzle trap activates!")
 
-def puzzle_room(player_info_arg):
-    """A room with a logic puzzle."""
+def trap_room(player_info_arg):
+    """A dangerous trap room."""
 
-    print("\n=== PUZZLE ROOM ===")
-    print("A stone tablet asks you a question.")
-    print("What number comes next in this pattern?")
-    print("2, 4, 8, 16, ?")
+    print("\n=== TRAP ROOM ===")
+    print("You step into a room and hear a CLICK!")
 
-    player_info_arg["location"] = "Puzzle Room"
+    player_info_arg["location"] = "Trap Room"
 
-    player_info_arg["choices"].append("Puzzle Room")
+    player_info_arg["health"] -= 15
+
+    player_info_arg["choices"].append("Trap Room")
 
     show_player_info(player_info_arg)
 
-    answer = input("Your answer > ").strip()
+    action = input("[roll | flee] > ").strip().lower()
 
-    if answer == "32":
-        print("Correct! The door opens.")
-        player_info_arg["health"] += 5
+    if action == "roll":
+        print("You dodge the arrows and escape!")
         return player_info_arg
 
-    elif "flee" in answer:
+    elif "flee" in action:
         return "flee"
 
     else:
-        you_died("The puzzle trap activates!")
+        you_died("Arrows hit you from the walls!")
     
 
 
