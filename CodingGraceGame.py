@@ -472,31 +472,33 @@ def treasure_room(player_info_arg):
     return player_info_arg
 
 def puzzle_room(player_info_arg):
-    """A room with a logic puzzle."""
+    """A puzzle room where the player must solve a riddle."""
 
     print("\n=== PUZZLE ROOM ===")
-    print("A stone tablet asks you a question.")
-    print("What number comes next in this pattern?")
-    print("2, 4, 8, 16, ?")
+    print("You step into a mysterious chamber.")
+    print("A voice echoes: Solve the riddle or face your fate.")
 
     player_info_arg["location"] = "Puzzle Room"
+    player_info_arg["health"] -= 5
+
+    item = "Ancient Key"
+    if item not in player_info_arg["inventory"]:
+        player_info_arg["inventory"].append(item)
+        print(f"You found a {item}!")
 
     player_info_arg["choices"].append("Puzzle Room")
 
     show_player_info(player_info_arg)
 
-    answer = input("Your answer > ").strip()
+    answer = input("What has keys but can't open locks? > ").strip().lower()
 
-    if answer == "32":
-        print("Correct! The door opens.")
-        player_info_arg["health"] += 5
+    if answer == "piano":
+        print("Correct! The door opens and you escape.")
         return player_info_arg
-
     elif "flee" in answer:
         return "flee"
-
     else:
-        you_died("The puzzle trap activates!")
+        you_died("Wrong answer. The room collapses.")
 
 def trap_room(player_info_arg):
     """A dangerous trap room."""
@@ -619,34 +621,6 @@ def start_new_adventure(player_info_arg):
 
     return player_info_arg
 
-def puzzle_room(player_info_arg):
-    """A puzzle room where the player must solve a riddle."""
-
-    print("\n=== PUZZLE ROOM ===")
-    print("You step into a mysterious chamber.")
-    print("A voice echoes: Solve the riddle or face your fate.")
-
-    player_info_arg["location"] = "Puzzle Room"
-    player_info_arg["health"] -= 5
-
-    item = "Ancient Key"
-    if item not in player_info_arg["inventory"]:
-        player_info_arg["inventory"].append(item)
-        print(f"You found a {item}!")
-
-    player_info_arg["choices"].append("Puzzle Room")
-
-    show_player_info(player_info_arg)
-
-    answer = input("What has keys but can't open locks? > ").strip().lower()
-
-    if answer == "piano":
-        print("Correct! The door opens and you escape.")
-        return player_info_arg
-    elif "flee" in answer:
-        return "flee"
-    else:
-        you_died("Wrong answer. The room collapses.")
 
 def main(player_info_main):
     """Main entry point: greets the player, runs the adventure, says goodbye.
