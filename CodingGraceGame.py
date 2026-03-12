@@ -440,6 +440,38 @@ def green_magic_room(player_info_arg):
         print("The magician waves his hand and you are whisked away...\n")
         return "flee"
 
+def treasure_room(player_info_arg):
+    """A hidden treasure chamber."""
+
+    print("\n=== TREASURE ROOM ===")
+    print("You enter a room filled with glittering treasure!")
+
+    player_info_arg["location"] = "Treasure Room"
+
+    player_info_arg["health"] += 10
+
+    item = "Gold Coin"
+
+    if item not in player_info_arg["inventory"]:
+        player_info_arg["inventory"].append(item)
+        print("You found a Gold Coin!")
+
+    player_info_arg["choices"].append("Treasure Room")
+
+    show_player_info(player_info_arg)
+
+    action = input("[take treasure | flee] > ").strip().lower()
+
+    if "take" in action:
+        print("You collect some treasure and feel lucky.")
+        return player_info_arg
+
+    elif "flee" in action:
+        return "flee"
+
+    return player_info_arg
+    
+
 
 # ===========================================================================
 # CONTROL FUNCTIONS
